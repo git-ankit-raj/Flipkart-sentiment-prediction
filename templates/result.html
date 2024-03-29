@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0fe8e5; /* Dark background color */
+            color: #fff; /* Text color */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative; /* Set position to relative to allow absolute positioning of pseudo-elements */
+        }
+        
+        
+        .container {
+            max-width: 600px; /* Increase the maximum width */
+            padding: 40px; /* Increase the padding */
+            border-radius: 25px; /* Adjust the border radius if needed */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.331);
+            background-color: #9d67eae7; /* Dark container background color */
+            text-align: center; /* Center align the content */
+            position: relative; /* Set position to relative */
+            /* z-index: 1; Ensure container is above pseudo-elements */
+            font-size: 20px;
+        }
+    
+   
+/* Create circular shapes with pseudo-elements */
+body::before,
+body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: rgba(129, 225, 33, 0.767); /* Semi-transparent white */
+    transform: translate(-50%, -50%);
+    z-index: -1; /* Set z-index to position behind content */
+}
+
+body::before {
+    top: 20%;
+    left: 15%;
+}
+
+body::after {
+    top: 80%;
+    left: 80%;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Text shadow for a radium effect */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f5940bcf; /* Background color for the header */
+    padding: 10px 0; /* Add padding to the header */
+    text-align: center; /* Center align the text */
+    z-index: 999; /* Ensure the header is above other content */
+    overflow:hidden; /* Hide overflow to enable left-to-right scroll */
+    white-space: nowrap; /* Prevent wrapping of text */
+    animation: marquee 10s linear infinite; /* Apply animation for left-to-right scroll */
+}
+
+#sentimentEmoji {
+            font-size: 68px; /* Adjust the font size to increase the emoji size */
+        }
+
+        .back {
+                font-size:40px; /* You can adjust this value to increase or decrease the size */
+                
+            }
+    </style>
+
+
+    
+</head>
+<body>
+    <h1>Sentiment Prediction</h1>
+    <div class="container">
+        <p><strong><span style="color: black;">Your review:</span></strong> <br> {{ review }}</p><br><br>
+        <p>Sentiment: <span id="sentimentText">{{ sentiment }}</span></p>
+        <p id="sentimentEmoji"></p>
+        <p class="back"><a href="/">🔙</a></p>
+    </div>
+    <script>
+        // JavaScript code to dynamically update the emoji based on sentiment
+        var sentimentResult = "{{ sentiment }}"; // Get the sentiment result from your backend
+        
+        // Define emojis for positive and negative sentiments
+        var positiveEmoji = "😍"; // Replace with your preferred positive emoji
+        var negativeEmoji = "😞"; // Replace with your preferred negative emoji
+        
+        // Get the element where the emoji will be displayed
+        var emojiElement = document.getElementById("sentimentEmoji");
+        var sentimentTextElement = document.getElementById("sentimentText");
+        
+        // Update the emoji based on the sentiment result
+        if (sentimentResult === "Positive Review") {
+            emojiElement.textContent = positiveEmoji;
+            sentimentTextElement.textContent = sentimentResult;
+            sentimentTextElement.style.color = "#38E038";
+        } else if (sentimentResult === "Negative Review") {
+            emojiElement.textContent = negativeEmoji;
+            sentimentTextElement.textContent = sentimentResult;
+            sentimentTextElement.style.color = "red";
+        }
+    </script>
+</body>
+</html>
